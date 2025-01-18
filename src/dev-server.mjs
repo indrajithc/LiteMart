@@ -45,13 +45,13 @@ directoryStructure.forEach((directory) => {
     );
 
     // Call the imported function
-    let result = pageDefaultFunction(req.params);
+    let result = await pageDefaultFunction(req.params);
 
     if (hasArrayElements(directory.layouts)) {
       for (const layout of directory.layouts) {
         const { default: layoutDefaultFunction } = await import(layout);
         if (typeof layoutDefaultFunction === "function") {
-          result = layoutDefaultFunction(result);
+          result = await layoutDefaultFunction(result);
         }
       }
     }
