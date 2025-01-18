@@ -1,5 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { layoutFile } from "../constants.mjs";
+
+export const hasArrayElements = (arr) => Array.isArray(arr) && arr.length > 0;
 
 export function getAllDirectories(dirPath) {
   let results = [];
@@ -27,3 +30,30 @@ export function getAllDirectories(dirPath) {
 
   return results;
 }
+
+// Function to check if the layout file exists at a given path
+export const checkLayouts = (baseDir) => (inputPath) => {
+  const layoutFiles = [];
+  let currentPath = inputPath;
+
+  // Loop through the path and check for the layouts.mjs file at each level
+  while (currentPath !== "/") {
+    const layoutPath = path.join(baseDir, currentPath, layoutFile);
+
+    // Check if the file exists
+    if (fs.existsSync(layoutPath)) {
+      layoutFiles.push(layoutPath);
+    }
+
+    // Move to the parent directory
+    currentPath = path.dirname(currentPath);
+  }
+
+  // Check the root level '/layouts.mjs' as well
+  const rootLayoutPath = path.join(baseDir, "/", layoutFile);
+  if (fs.existsSync(rootLayoutPath)) {
+    layoutFiles.push(rootLayoutPath);
+  }
+
+  return layoutFiles.sort((a, b) => b.split("/").length - a.split("/").length);
+};
