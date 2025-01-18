@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { layoutFile } from "../constants.mjs";
 import { match } from "path-to-regexp";
+import { minify } from "html-minifier-terser";
 
 export const hasArrayElements = (arr) => Array.isArray(arr) && arr.length > 0;
 
@@ -64,7 +65,6 @@ export function getMatchingRoute(pathname, directoryStructure) {
     const { route } = routeObj;
 
     // Create a path-to-regexp matcher
-    console.log({ route });
     const matcher = match(route, { decode: decodeURIComponent });
     const result = matcher(pathname);
 
@@ -74,4 +74,17 @@ export function getMatchingRoute(pathname, directoryStructure) {
   }
 
   return null;
+}
+
+export async function minifyHTML(html) {
+  return await minify(html, {
+    removeComments: true, // Remove comments
+    collapseWhitespace: true, // Collapse whitespace
+    removeAttributeQuotes: true, // Remove unnecessary attribute quotes
+    minifyJS: true, // Minify inline JavaScript
+    minifyCSS: true, // Minify inline CSS
+    collapseBooleanAttributes: true, // Collapse boolean attributes (e.g., <input checked> becomes <input>)
+    removeEmptyAttributes: true, // Remove empty attributes
+    minifyURLs: true, // Minify URLs
+  });
 }
