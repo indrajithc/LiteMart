@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "src/index.js",
-    "dev": "nodemon src/dev-server.mjs"
+    "dev": "nodemon src/dev-server.mjs",
+    "build": "node src/build-server.mjs"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,8 @@
   },
   "homepage": "https://github.com/indrajithc/LiteMart#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "path-to-regexp": "^8.2.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",
