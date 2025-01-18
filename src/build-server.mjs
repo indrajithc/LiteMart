@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { rootDir } from "../config.mjs";
 import { buildDirectory } from "./common/constants.mjs";
-import { getMatchingRoute } from "./common/utils/commonUtils.mjs";
+import { getMatchingRoute, minifyHTML } from "./common/utils/commonUtils.mjs";
 import serverHandler, { directoryStructure } from "./server.mjs";
 
 const getBuildPath = async () => {
@@ -30,7 +30,7 @@ async function buildRoute(pathname) {
     const routePath = path.join(routePathDirectory, "index.html");
 
     // Write the generated content to the file
-    fs.writeFileSync(routePath, result);
+    fs.writeFileSync(routePath, await minifyHTML(result));
     console.info(`Generated file for route: ${directory.route}`);
   } catch (error) {
     console.error(`Error generating file for route: ${path}`, error);
