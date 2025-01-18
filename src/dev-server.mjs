@@ -2,7 +2,11 @@ import express from "express";
 
 import { rootDir, port } from "../config.mjs";
 import { pageDirectory, pageFile } from "./common/constants.mjs";
-import { getAllDirectories } from "./common/utils/commonUtils.mjs";
+import {
+  checkLayouts,
+  getAllDirectories,
+  hasArrayElements,
+} from "./common/utils/commonUtils.mjs";
 
 const finalPageDirectory = `${rootDir}${pageDirectory}`;
 
@@ -11,12 +15,14 @@ const finalPageDirectory = `${rootDir}${pageDirectory}`;
 const directoryTree = getAllDirectories(finalPageDirectory);
 
 const directoryStructure = directoryTree
-  .map((directory) => ({
-    route: directory
-      .replace(finalPageDirectory, "")
-      .replace(/\[([^\]]+)\]/g, ":$1"),
-    directory,
-  }))
+  .map((directory) => {
+    const directoryRoute = directory.replace(finalPageDirectory, "");
+    return {
+      route: directoryRoute.replace(/\[([^\]]+)\]/g, ":$1"),
+      directory,
+      layouts: checkLayouts(finalPageDirectory)(directoryRoute),
+    };
+  })
   .sort(
     (a, b) => b.directory.split("/").length - a.directory.split("/").length
   );
@@ -39,7 +45,17 @@ directoryStructure.forEach((directory) => {
     );
 
     // Call the imported function
-    const result = pageDefaultFunction(req.params);
+    let result = pageDefaultFunction(req.params);
+
+    if (hasArrayElements(directory.layouts)) {
+      for (const layout of directory.layouts) {
+        const { default: layoutDefaultFunction } = await import(layout);
+        if (typeof layoutDefaultFunction === "function") {
+          result = layoutDefaultFunction(result);
+        }
+      }
+    }
+
     // const filePath
     return res.send(result);
   });
