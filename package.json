@@ -1,0 +1,19 @@
+{
+  "name": "lite-mart",
+  "version": "1.0.0",
+  "description": "LiteMart is a high-performance e-commerce application framework crafted for blazing-fast web experiences. It is built with a focus on minimalism, pure JavaScript for component-based architecture, and a lightweight design to deliver exceptional mobile performance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indrajithc/LiteMart.git"
+  },
+  "author": "indrajithc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/indrajithc/LiteMart/issues"
+  },
+  "homepage": "https://github.com/indrajithc/LiteMart#readme"
+}
