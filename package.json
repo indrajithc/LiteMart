@@ -7,7 +7,7 @@
   "scripts": {
     "test": "src/index.js",
     "dev": "nodemon src/dev-server.mjs",
-    "build": "nodemon src/build-server.mjs"
+    "build": "node src/build-server.mjs"
   },
   "repository": {
     "type": "git",
