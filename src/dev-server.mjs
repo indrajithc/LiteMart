@@ -33,8 +33,6 @@ const app = express();
 directoryStructure.forEach((directory) => {
   console.info(`Adding route for ${directory?.route}`);
   app.get(directory.route, async (req, res) => {
-    console.log("directory", directory);
-
     // Import the default export inside the async function
     const { default: pageDefaultFunction } = await import(
       directory.directory + "/" + pageFile
