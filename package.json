@@ -7,7 +7,7 @@
   "scripts": {
     "test": "src/index.js",
     "dev": "nodemon src/dev-server.mjs",
-    "build": "node src/build-server.mjs"
+    "build": "nodemon src/build-server.mjs"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/indrajithc/LiteMart#readme",
   "dependencies": {
     "express": "^4.21.2",
+    "html-minifier-terser": "^7.2.0",
     "path-to-regexp": "^8.2.0"
   },
   "devDependencies": {
