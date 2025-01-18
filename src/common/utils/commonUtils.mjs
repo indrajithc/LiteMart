@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { layoutFile } from "../constants.mjs";
+import { match } from "path-to-regexp";
 
 export const hasArrayElements = (arr) => Array.isArray(arr) && arr.length > 0;
 
@@ -57,3 +58,20 @@ export const checkLayouts = (baseDir) => (inputPath) => {
 
   return layoutFiles.sort((a, b) => b.split("/").length - a.split("/").length);
 };
+
+export function getMatchingRoute(pathname, directoryStructure) {
+  for (const routeObj of directoryStructure) {
+    const { route } = routeObj;
+
+    // Create a path-to-regexp matcher
+    console.log({ route });
+    const matcher = match(route, { decode: decodeURIComponent });
+    const result = matcher(pathname);
+
+    if (result) {
+      return { directory: routeObj, params: { ...(result.params || {}) } };
+    }
+  }
+
+  return null;
+}
