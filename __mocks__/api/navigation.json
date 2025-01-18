@@ -1,0 +1,54 @@
+{
+  "navigation": [
+    {
+      "label": "Home",
+      "path": "/en"
+    },
+    {
+      "label": "Products",
+      "path": "/en/products",
+      "children": [
+        {
+          "label": "Electronics",
+          "path": "/en/products/electronics",
+          "children": [
+            {
+              "label": "Laptops",
+              "path": "/en/products/electronics/laptops"
+            },
+            {
+              "label": "Mobile Phones",
+              "path": "/en/products/electronics/mobile-phones"
+            }
+          ]
+        },
+        {
+          "label": "Furniture",
+          "path": "/en/products/furniture"
+        }
+      ]
+    },
+    {
+      "label": "About Us",
+      "path": "/en/about"
+    },
+    {
+      "label": "Contact",
+      "path": "/en/contact"
+    },
+    {
+      "label": "User Profile",
+      "path": "/en/user/123/profile",
+      "children": [
+        {
+          "label": "Orders",
+          "path": "/en/user/123/orders"
+        },
+        {
+          "label": "Wishlist",
+          "path": "/en/user/123/wishlist"
+        }
+      ]
+    }
+  ]
+}
